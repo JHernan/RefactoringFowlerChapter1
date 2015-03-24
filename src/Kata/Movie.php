@@ -59,6 +59,17 @@ class Movie
         return $result;
     }
 
+    /**
+     * @param $daysRented
+     * @return int
+     */
+    public function calculateFrequentRenterPoints($daysRented){
+        if ($this->getPriceCode() == self::NEW_RELEASE && $daysRented > 1)
+            return 2;
+
+        return 1;
+    }
+
 }
 
 ?>
