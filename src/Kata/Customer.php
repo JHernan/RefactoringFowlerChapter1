@@ -27,7 +27,6 @@ class Customer
 
     public function statement()
     {
-        $totalAmount = 0;
         $frequentRenterPoints = 0;
 
         $result = "Rental record for " . $this->getName() . "\n";
@@ -36,14 +35,23 @@ class Customer
 
             // show figures for this rental
             $result .= "\t" . $rental->getMovie()->getTitle() . "\t" . $rental->getCharge() . "\n";
-
-            $totalAmount += $rental->getCharge();
         }
 
-        $result .= "Amount owed is " . $totalAmount . "\n";
+        $result .= "Amount owed is " . $this->calculateTotalCharge() . "\n";
         $result .= "You earned " . $frequentRenterPoints . " frequent renter points";
 
         return $result;
+    }
+
+    /**
+     * @return int
+     */
+    private function calculateTotalCharge(){
+        $totalCharge = 0;
+        foreach($this->rentals as $rental){
+            $totalCharge += $rental->getCharge();
+        }
+        return $totalCharge;
     }
 }
 
