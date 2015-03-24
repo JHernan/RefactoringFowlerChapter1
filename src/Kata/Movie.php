@@ -35,6 +35,30 @@ class Movie
         $this->priceCode = $priceCode;
     }
 
+    /**
+     * @param $daysRented
+     * @return float|int
+     */
+    public function getCharge($daysRented){
+        $result = 0;
+        switch ($this->getPriceCode()) {
+            case self::REGULAR:
+                $result += 2;
+                if ($daysRented > 2)
+                    $result += ($daysRented - 2) * 1.5;
+                break;
+            case self::NEW_RELEASE:
+                $result += $daysRented * 3;
+                break;
+            case self::CHILDREN:
+                $result += 1.5;
+                if ($daysRented > 3)
+                    $result += ($daysRented - 3) * 1.5;
+                break;
+        }
+        return $result;
+    }
+
 }
 
 ?>
