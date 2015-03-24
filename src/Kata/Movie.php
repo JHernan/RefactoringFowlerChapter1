@@ -12,12 +12,12 @@ class Movie
     const NEW_RELEASE = 1;
 
     private $title;
-    private $priceCode;
+    private $price;
 
-    public function __construct($title, $priceCode)
+    public function __construct($title, $price)
     {
         $this->title = $title;
-        $this->priceCode = $priceCode;
+        $this->setPriceCode($price);
     }
 
     public function getTitle()
@@ -27,12 +27,22 @@ class Movie
 
     public function getPriceCode()
     {
-        return $this->priceCode;
+        return $this->price->getPriceCode();
     }
 
-    public function setPriceCode($priceCode)
+    public function setPriceCode($price)
     {
-        $this->priceCode = $priceCode;
+        switch($price){
+            case self::REGULAR:
+                $this->price = new RegularPrice();
+                break;
+            case self::CHILDREN:
+                $this->price = new ChildrenPrice();
+                break;
+            case self::NEW_RELEASE:
+                $this->price = new NewReleasePrice();
+                break;
+        }
     }
 
     /**

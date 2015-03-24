@@ -9,7 +9,7 @@ use PHPUnit_Framework_TestCase;
 class CustomerTest extends PHPUnit_Framework_TestCase
 {
     private $THE_HULK;
-    private $IRONMAN;
+    private $IRON_MAN;
     private $SPIDER_MAN;
 
     private $customer;
