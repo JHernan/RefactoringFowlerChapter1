@@ -14,10 +14,10 @@ class Movie
     private $title;
     private $price;
 
-    public function __construct($title, $price)
+    public function __construct($title, $priceCode)
     {
         $this->title = $title;
-        $this->setPriceCode($price);
+        $this->setPriceCode($priceCode);
     }
 
     public function getTitle()
@@ -33,19 +33,10 @@ class Movie
     /**
      * @param $price
      */
-    public function setPriceCode($price)
+    public function setPriceCode($priceCode)
     {
-        switch($price){
-            case self::REGULAR:
-                $this->price = new RegularPrice();
-                break;
-            case self::CHILDREN:
-                $this->price = new ChildrenPrice();
-                break;
-            case self::NEW_RELEASE:
-                $this->price = new NewReleasePrice();
-                break;
-        }
+        $factory = new PriceFactory();
+        $this->price = $factory->create($priceCode);
     }
 
     /**
